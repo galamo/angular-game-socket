@@ -1,0 +1,30 @@
+<div class="card" [ngClass]="{'selected-country': countryObj.isSelected}">
+    <h2 class="select-button" (click)="selectCountry()"> {{  countryObj.name }}</h2>
+    <h3 class="mark" *ngIf="countryObj.borders && !countryObj.borders.length"> No Borders </h3>
+    <!-- <div class="mark-currencies" *ngIf="moreThenTwoCurrencies(country)"> -->
+
+    <img (mouseleave)="changeFlagSize(50)" (mouseenter)="changeFlagSize(100)" [width]="flagWidth"
+        [src]="countryObj.flag" />
+    <ol>
+        <li *ngFor="let currency of countryObj.currencies">
+            {{currency.code}} {{currency.symbol}}
+        </li>
+    </ol>
+    <button (click)="this.delEvent.emit(countryObj.name)">
+
+        <img width="40"
+            src="https://cdn.imgbin.com/1/15/8/imgbin-button-icon-delete-button-delete-logo-4kMy1Q3bUbUNbVPKvS0MTiZBe.jpg" />
+    </button>
+    <br>
+    <div>
+        comment: <input [(ngModel)]="comment" />
+        <button (click)="addComment()"> Add Comment </button>
+        <br>
+        <h2> Comments </h2>
+        <ol>
+            <li *ngFor="let current of comments">
+                {{current}}
+            </li>
+        </ol>
+    </div>
+</div>

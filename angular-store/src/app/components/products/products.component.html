@@ -1,0 +1,26 @@
+<div>
+
+    <app-reactive-search></app-reactive-search>
+    <div style="display:flex;flex-wrap: wrap;">
+        <mat-card style="display: inline-block;" *ngFor="let p of products | search:searchText:'productName'">
+            <mat-card-title> {{ p.productName }}</mat-card-title>
+            <mat-card-subtitle>
+                {{ p.unitPrice | currencySign: "eu" }}
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+                {{ p.createAt | date:dateFormat }}
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+                {{ p.description }}
+            </mat-card-subtitle>
+
+        </mat-card>
+    </div>
+
+
+    <br>
+    <h1> productsService to order </h1>
+    <h3 *ngFor="let product of productsService.productsToOrder">
+        {{ product.productName }}
+    </h3>
+</div>

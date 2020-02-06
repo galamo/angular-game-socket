@@ -1,0 +1,6 @@
+<!-- route : { path, component, isVisible?, name? } -->
+<div class="routes">
+    <div *ngFor="let route of routes">
+        <a *ngIf="route.isVisible" routerLink="{{prefix}}{{route.path}}"> {{ route.title }} </a>
+    </div>
+</div>

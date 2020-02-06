@@ -1,0 +1,18 @@
+<div>
+    <!-- <h1> Users list </h1>
+    <ol>
+        <li *ngFor="let user of usersListModel"> {{ user }} </li>
+    </ol> -->
+
+
+    <!-- card start Here -->
+    <div *ngFor="let user of usersListModel">
+        <div>
+            <h1> {{ user }} </h1>
+        </div>
+    </div>
+    <!-- card end Here -->
+    {{endOfList}}
+    <button *ngIf="role === 'admin'" (click)="removeFirstUser()"> Delete from list </button>
+    <button (click)="changeRole()"> change role to admin </button>
+</div>

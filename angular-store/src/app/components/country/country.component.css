@@ -1,0 +1,25 @@
+.card{
+    border: 1px solid black;
+    padding:10px;
+    margin:10px;
+    min-width: 400px;
+}
+
+.mark{
+    color:red
+}
+
+.mark-currencies{
+    color:blue
+}
+
+.select-button{
+    cursor: pointer;
+}
+.select-button:hover{
+    background-color: yellow;
+}
+
+.selected-country{
+    background-color: yellow;
+}
