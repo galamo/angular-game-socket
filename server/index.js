@@ -3,58 +3,80 @@ const express = require("express");
 const http = require("http")
 const socket = require("socket.io");
 const actions = require("./socket.actions")
+const { Player } = require("./models/player")
+const { Game } = require("./controllers/game")
 
 const app = express();
 const server = http.Server(app)
 const socketHandler = socket(server)
 
-const position = {
-  x:350,
-  y:350  
-}
+
+
+// const position = {
+//   x:350,
+//   y:350  
+// }
+
+const newGame = new Game();
+
+
 const movement = Number(process.env.MOVEMENT_SIZE)
-socketHandler.on("connection",(currentSocket)=>{
+socketHandler.on("connection", (currentSocket) => {
+
     console.log(currentSocket.id);
     console.log("new connection opened")
-    currentSocket.emit(actions.position, position)
-    currentSocket.on(actions.move,(direc)=>{
+    newGame.addPlayer(new Player(currentSocket.id))
+    socketHandler.emit(actions.position, newGame.players)
 
-        switch(direc){
-            case "left":{
+
+    currentSocket.on("disconnect", () => {
+        newGame.removePlayer(currentSocket.id)
+        socketHandler.emit(actions.position, newGame.players)
+    })
+
+    currentSocket.on(actions.move, ({ playerId, direction }) => {
+        const { players } = newGame;
+        const currentPlayer = newGame.getPlayer(playerId);
+        if (!currentPlayer) return;
+        const { position } = currentPlayer;
+        switch (direction) {
+            case "left": {
                 position.x = position.x - movement
-                socketHandler.emit(actions.position,position)
+                socketHandler.emit(actions.position, players)
                 break;
             }
-            case "right":{
+            case "right": {
                 position.x = position.x + movement
-                socketHandler.emit(actions.position,position)
+                socketHandler.emit(actions.position, players)
                 break;
             }
-            case "up":{
+            case "up": {
                 position.y = position.y - movement
-                socketHandler.emit(actions.position,position)
+                socketHandler.emit(actions.position, players)
                 break;
             }
-            case "down":{
+            case "down": {
                 position.y = position.y + movement
-                socketHandler.emit(actions.position,position)
+                socketHandler.emit(actions.position, players)
                 break;
             }
         }
     })
 })
 
-app.use("/",(req,res,next)=>{
+
+
+app.use("/", (req, res, next) => {
     console.log("middleware...")
     next()
 })
 
-app.get("/start",(req,res,next)=>{
+app.get("/start", (req, res, next) => {
     console.log("game start...")
     res.send("game start...")
 })
 
 
-server.listen(process.env.PORT,()=>{
+server.listen(process.env.PORT, () => {
     console.log(`listening to ${process.env.PORT}`)
 })
