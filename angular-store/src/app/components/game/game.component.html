@@ -1,14 +1,16 @@
 <div style="width: 50% ;margin:auto auto; text-align: center;">
-    <h1> Lets Move </h1>
+    <span appHighlight highlightColor="blue" appResize initialSize="40px"> Lets Move </span>
+
     <div>
-    <button mat-button color="accent" (click)="move('up')" >Up</button>
-    <button mat-button color="accent" (click)="move('down')" >Down</button>
-    <button mat-button color="accent" (click)="move('left')" >Left</button>
-    <button mat-button color="accent" (click)="move('right')" >Right</button>
-    
+        <button mat-button color="accent" (click)="move('up')">Up</button>
+        <button mat-button color="accent" (click)="move('down')">Down</button>
+        <button mat-button color="accent" (click)="move('left')">Left</button>
+        <button mat-button color="accent" (click)="move('right')">Right</button>
+
     </div>
     <canvas #game width="600px" height="500px" style="border:solid 1px black">
-        
+
     </canvas>
+    <h3 appResize> Game by Silvia@Devs </h3>
 </div>
 <!-- a -->
