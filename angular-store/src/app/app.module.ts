@@ -25,6 +25,7 @@ import { CurrencySignPipe } from './pipes/currency-sign.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { ReactiveSearchComponent } from './components/reactive-search/reactive-search.component';
 import { GameComponent } from './components/game/game.component';
+import { ResizeDirective } from './directives/resize.directive';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { GameComponent } from './components/game/game.component';
         SearchPipe,
         ReactiveSearchComponent,
         GameComponent,
+        ResizeDirective,
 
     ],
     imports: [
