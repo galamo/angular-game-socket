@@ -2,3 +2,20 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.noselect{
+    user-select: none;
+    cursor: pointer;
+}
+
+.copied{
+    background-color: #7e7ec7e3;
+    position: fixed;
+    z-index: 9999;
+    font-size: 15px;
+    padding: 8px;;
+    border-radius: 5px;
+    color:white
+    
+}

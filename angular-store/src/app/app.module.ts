@@ -27,6 +27,7 @@ import { ReactiveSearchComponent } from './components/reactive-search/reactive-s
 import { GameComponent } from './components/game/game.component';
 import { HighlightDirective } from './directives/highlight/highlight.directive';
 import { ResizeDirective } from './directives/resize/resize.directive';
+import { CopyDirective } from './directives/copyToClipboard/copy.directive';
 
 @NgModule({
     declarations: [
@@ -49,6 +50,7 @@ import { ResizeDirective } from './directives/resize/resize.directive';
         GameComponent,
         HighlightDirective,
         ResizeDirective,
+        CopyDirective,
 
     ],
     imports: [
