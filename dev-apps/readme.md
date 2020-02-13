@@ -13,6 +13,16 @@ Open Robo 3T
 and connect to the server
 
 
+# Run MongoDB on Docker for windows
+1. install Docker Desktop
+2. go to Dev-apps folder
+3. run docker-compose up ( we will talk about docker compose next lesson )
+4. connect to your localhost:27017 from mongo client
+
+Note using docker compose based on the docker-compose.yml
+
+
+
 
 # Docker and more
 
