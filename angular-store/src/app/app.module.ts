@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +28,7 @@ import { GameComponent } from './components/game/game.component';
 import { HighlightDirective } from './directives/highlight/highlight.directive';
 import { ResizeDirective } from './directives/resize/resize.directive';
 import { CopyDirective } from './directives/copyToClipboard/copy.directive';
+import { CustomInterceptorService } from './services/interceptors/custom-interceptor.service';
 
 @NgModule({
     declarations: [
@@ -65,7 +66,7 @@ import { CopyDirective } from './directives/copyToClipboard/copy.directive';
         MatCardModule,
         MatButtonModule
     ],
-    providers: [],
-    bootstrap: [AppComponent]
+    providers: [{ useClass: CustomInterceptorService, provide: HTTP_INTERCEPTORS, multi: true }],
+    bootstrap: [AppComponent]   
 })
 export class AppModule { }
