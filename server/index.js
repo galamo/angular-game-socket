@@ -5,12 +5,19 @@ const socket = require("socket.io");
 const actions = require("./socket.actions")
 const { Player } = require("./models/player")
 const { Game } = require("./controllers/game")
+const bodyParser = require('body-parser')
 
 const app = express();
 const server = http.Server(app)
 const socketHandler = socket(server)
+const dbConnection = require("./database/db");
 
 
+// routes
+const register = require("./controllers/register")
+
+
+dbConnection()
 
 // const position = {
 //   x:350,
@@ -64,6 +71,10 @@ socketHandler.on("connection", (currentSocket) => {
     })
 })
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use(register)
 
 
 app.use("/", (req, res, next) => {
@@ -76,7 +87,9 @@ app.get("/start", (req, res, next) => {
     res.send("game start...")
 })
 
-
+app.use((err, req, res, next) => {
+    res.json({ message: "general error" })
+})
 server.listen(process.env.PORT, () => {
     console.log(`listening to ${process.env.PORT}`)
 })
