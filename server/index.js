@@ -5,17 +5,22 @@ const socket = require("socket.io");
 const actions = require("./socket.actions")
 const { Player } = require("./models/player")
 const { Game } = require("./controllers/game")
-
+const initDbConnection = require("./db/db")
 const app = express();
 const server = http.Server(app)
 const socketHandler = socket(server)
-
-
+const UsersModel = require("./modelsMongoos/User")
+initDbConnection();
 
 // const position = {
 //   x:350,
 //   y:350  
 // }
+
+setTimeout(() => {
+    const user = new UsersModel({ name: "gal", email: "ee@e.com", password: 1234 })
+    user.save()
+}, 3000);
 
 const newGame = new Game();
 

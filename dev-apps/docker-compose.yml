@@ -1,9 +1,13 @@
 version: '3.1'
 
 services:
-  databasemongo:
+  db_mongo:
     image: 'bitnami/mongodb:latest'
     ports:
-      - 27017:27017
+      - 27019:27017
+  db_mongo_2:
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - 27018:27017
 
 
