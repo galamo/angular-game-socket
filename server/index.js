@@ -6,7 +6,7 @@ const actions = require("./socket.actions")
 const { Player } = require("./models/player")
 const { Game } = require("./controllers/game")
 const bodyParser = require('body-parser')
-
+console.log("container is up version 2")
 const app = express();
 const server = http.Server(app)
 const socketHandler = socket(server)

@@ -6,6 +6,7 @@ import { TravelListComponent } from '../components/travel-list/travel-list.compo
 import { FavoritesComponent } from '../components/favorites/favorites.component';
 import { ProductsComponent } from '../components/products/products.component';
 import { GameComponent } from '../components/game/game.component';
+import { AuthGuardService } from '../services/auth-guard.service';
 
 
 interface CustomRoute extends Route {
@@ -19,8 +20,8 @@ export const routes: Array<CustomRoute> = [
     { path: "", redirectTo: "countries", pathMatch: "full" },
     { path: "countries", component: CountriesListComponent, title: "CountrieS", isVisible: true },
     { path: "favorites", component: FavoritesComponent, title: "Favorites", isVisible: true },
-    { path: "products", component: ProductsComponent, title: "Products", isVisible: true },
-   
+    { path: "products", component: ProductsComponent, title: "Products", isVisible: true, canDeactivate: [AuthGuardService], canActivate: [AuthGuardService] },
+
     {
         path: "travels", component: TravelsComponent, title: "Trips", isVisible: true, children: [
             { path: "", redirectTo: "travel-list", pathMatch: "full" },
@@ -32,5 +33,5 @@ export const routes: Array<CustomRoute> = [
             }
         ]
     },
-     { path: "game", component: GameComponent, title: "Game", isVisible: true }
+    { path: "game", component: GameComponent, title: "Game", isVisible: true }
 ];
