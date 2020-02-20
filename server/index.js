@@ -15,6 +15,7 @@ const dbConnection = require("./database/db");
 
 // routes
 const register = require("./controllers/register")
+const users = require("./controllers/users")
 
 
 dbConnection()
@@ -75,7 +76,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use(register)
-
+app.use("/users", users)
 
 app.use("/", (req, res, next) => {
     console.log("middleware...")
