@@ -2,18 +2,20 @@ require("dotenv").config();
 const express = require("express");
 const http = require("http");
 const socket = require("socket.io");
-const actions = require("./socket.actions");
-const { Player } = require("./models/player");
-const { Game } = require("./controllers/game");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const actions = require("./socket.actions")
+const { Player } = require("./models/player")
+const { Game } = require("./controllers/game")
+const bodyParser = require('body-parser')
+console.log("container is up version 2")
 const app = express();
 const server = http.Server(app);
 const socketHandler = socket(server);
 const dbConnection = require("./database/db");
 
 // routes
-const register = require("./controllers/register");
+const register = require("./controllers/register")
+const users = require("./controllers/users")
+
 
 dbConnection();
 
@@ -24,52 +26,56 @@ dbConnection();
 
 const newGame = new Game();
 
-const movement = Number(process.env.MOVEMENT_SIZE);
-socketHandler.on("connection", currentSocket => {
-  console.log(currentSocket.id);
-  console.log("new connection opened");
-  newGame.addPlayer(new Player(currentSocket.id));
-  socketHandler.emit(actions.position, newGame.players);
 
-  currentSocket.on("disconnect", () => {
-    newGame.removePlayer(currentSocket.id);
-    socketHandler.emit(actions.position, newGame.players);
-  });
+const movement = Number(process.env.MOVEMENT_SIZE)
+socketHandler.on("connection", (currentSocket) => {
 
-  currentSocket.on(actions.move, ({ playerId, direction }) => {
-    const { players } = newGame;
-    const currentPlayer = newGame.getPlayer(playerId);
-    if (!currentPlayer) return;
-    const { position } = currentPlayer;
-    switch (direction) {
-      case "left": {
-        position.x = position.x - movement;
-        socketHandler.emit(actions.position, players);
-        break;
-      }
-      case "right": {
-        position.x = position.x + movement;
-        socketHandler.emit(actions.position, players);
-        break;
-      }
-      case "up": {
-        position.y = position.y - movement;
-        socketHandler.emit(actions.position, players);
-        break;
-      }
-      case "down": {
-        position.y = position.y + movement;
-        socketHandler.emit(actions.position, players);
-        break;
-      }
-    }
-  });
-});
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+    console.log(currentSocket.id);
+    console.log("new connection opened")
+    newGame.addPlayer(new Player(currentSocket.id))
+    socketHandler.emit(actions.position, newGame.players)
 
-app.use(register);
+
+    currentSocket.on("disconnect", () => {
+        newGame.removePlayer(currentSocket.id)
+        socketHandler.emit(actions.position, newGame.players)
+    })
+
+    currentSocket.on(actions.move, ({ playerId, direction }) => {
+        const { players } = newGame;
+        const currentPlayer = newGame.getPlayer(playerId);
+        if (!currentPlayer) return;
+        const { position } = currentPlayer;
+        switch (direction) {
+            case "left": {
+                position.x = position.x - movement
+                socketHandler.emit(actions.position, players)
+                break;
+            }
+            case "right": {
+                position.x = position.x + movement
+                socketHandler.emit(actions.position, players)
+                break;
+            }
+            case "up": {
+                position.y = position.y - movement
+                socketHandler.emit(actions.position, players)
+                break;
+            }
+            case "down": {
+                position.y = position.y + movement
+                socketHandler.emit(actions.position, players)
+                break;
+            }
+        }
+    })
+})
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use(register)
+app.use("/users", users)
 
 app.use("/", (req, res, next) => {
   console.log("middleware...");
