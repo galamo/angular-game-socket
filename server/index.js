@@ -1,6 +1,6 @@
-require("dotenv").config()
+require("dotenv").config();
 const express = require("express");
-const http = require("http")
+const http = require("http");
 const socket = require("socket.io");
 const actions = require("./socket.actions")
 const { Player } = require("./models/player")
@@ -8,21 +8,24 @@ const { Game } = require("./controllers/game")
 const bodyParser = require('body-parser')
 console.log("container is up version 2")
 const app = express();
-const server = http.Server(app)
-const socketHandler = socket(server)
+const server = http.Server(app);
+const socketHandler = socket(server);
 const dbConnection = require("./database/db");
+<<<<<<< HEAD
 const fs = require("fs")
+=======
+>>>>>>> 6f600ea63ab3bc5bceb67faca111f37342cfb9f6
 
 // routes
 const register = require("./controllers/register")
 const users = require("./controllers/users")
 const tasks = require("./controllers/tasks")
 
-dbConnection()
+dbConnection();
 
 // const position = {
 //   x:350,
-//   y:350  
+//   y:350
 // }
 
 const newGame = new Game();
@@ -83,18 +86,18 @@ app.use("/tasks", tasks)
 // dynamic require + use 
 
 app.use("/", (req, res, next) => {
-    console.log("middleware...")
-    next()
-})
+  console.log("middleware...");
+  next();
+});
 
 app.get("/start", (req, res, next) => {
-    console.log("game start...")
-    res.send("game start...")
-})
+  console.log("game start...");
+  res.send("game start...");
+});
 
 app.use((err, req, res, next) => {
-    res.json({ message: "general error" })
-})
+  res.json({ message: "general error" });
+});
 server.listen(process.env.PORT, () => {
-    console.log(`listening to ${process.env.PORT}`)
-})
+  console.log(`listening to ${process.env.PORT}`);
+});

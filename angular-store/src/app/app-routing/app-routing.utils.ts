@@ -10,11 +10,10 @@ import { AuthGuardService } from '../services/auth-guard.service';
 
 
 interface CustomRoute extends Route {
-    children?: Array<CustomRoute>;
-    title?: string;
-    isVisible?: boolean;
+  children?: Array<CustomRoute>;
+  title?: string;
+  isVisible?: boolean;
 }
-
 
 export const routes: Array<CustomRoute> = [
     { path: "", redirectTo: "countries", pathMatch: "full" },
