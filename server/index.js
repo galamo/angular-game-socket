@@ -11,12 +11,12 @@ const app = express();
 const server = http.Server(app)
 const socketHandler = socket(server)
 const dbConnection = require("./database/db");
-
+const fs = require("fs")
 
 // routes
 const register = require("./controllers/register")
 const users = require("./controllers/users")
-
+const tasks = require("./controllers/tasks")
 
 dbConnection()
 
@@ -77,6 +77,10 @@ app.use(bodyParser.json())
 
 app.use(register)
 app.use("/users", users)
+app.use("/tasks", tasks)
+
+// dynamically read path all routes from controller
+// dynamic require + use 
 
 app.use("/", (req, res, next) => {
     console.log("middleware...")
